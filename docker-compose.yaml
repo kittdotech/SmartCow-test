@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  backend:
+    build:
+      context: "api"
+      dockerfile: backend.Dockerfile
+    command: ["gunicorn", "app:app"]
+    expose:
+      - 8000
+  frontend:
+    build:
+      context: "sys-stats"
+      dockerfile: frontend.Dockerfile
+      target: build
+    expose:
+      - 3000
+  proxy:
+    build:
+      context: "sys-stats"
+      dockerfile: frontend.Dockerfile
+      target: proxy
